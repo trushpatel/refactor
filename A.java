@@ -1,4 +1,4 @@
 public class A {
-    private void x() {}
+    public void x() {}
     public void y() {}
 }

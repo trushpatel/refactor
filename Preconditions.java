@@ -6,6 +6,7 @@ class Preconditions {
         if (pC1 && pC2 && pC3) return true;
         return false;
     }
+
     // The new name cannot be illegal
 
     private static boolean pC1 (String newName) {
@@ -17,7 +18,9 @@ class Preconditions {
 
     private static boolean pC2 () {}
 
-    private static boolean methodSignature(String method1, String method 2) {}
+    private static boolean methodSignature(String method1, String method2) {
+        
+    }
 
     // Rename all overriding and overridden methods
 
