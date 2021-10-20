@@ -35,17 +35,26 @@ public class RiMrDriver {
         String line;
         while ((line = is.readLine()) != null) {
             String [] elements = line.split(" ");
-            String [] methodSig = line.split("\\s*[()]\\s*");
+            String [] methodSig = line.split("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
             //m = p.matcher();
-            //System.out.println(m.group());
-            for (int i = 0; i < elements.length; i++) {
-                hs.add(elements[i]);
-                System.out.println(elements[i]);
+            //System.out.println(m.matches());
+            //for (int i = 0; i < elements.length; i++) {
+              //  hs.add(elements[i]);
+                //System.out.println(elements[i]);
+           // }
+            Pattern pa = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
+            for (int i = 0; i < methodSig.length; i++) {
+                System.out.println(pa.matcher(methodSig[i]).matches());
             }
-            System.out.println();
-            System.out.println(Arrays.toString(methodSig));
+           // System.out.println();
+           // System.out.println(Arrays.toString(methodSig));
         }
        // if (hs.contains(newName + "()")) System.out.println("Duplicate method");
        // System.out.println(hs.toString());
+    }
+
+    private static boolean validSig (String s) {
+        Pattern p = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
+        return p.matcher(s).matches();
     }
 }
