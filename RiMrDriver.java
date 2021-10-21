@@ -34,20 +34,20 @@ public class RiMrDriver {
         BufferedReader is = new BufferedReader(new InputStreamReader(in));
         String line;
         while ((line = is.readLine()) != null) {
-            String [] elements = line.split(" ");
-            String [] methodSig = line.split("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
-            //m = p.matcher();
-            //System.out.println(m.matches());
-            //for (int i = 0; i < elements.length; i++) {
-              //  hs.add(elements[i]);
-                //System.out.println(elements[i]);
-           // }
+           // String [] elements = line.split(" ");
+            String [] methodSig = line.split("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]");
+            /*m = p.matcher();
+            System.out.println(m.matches());
+            for (int i = 0; i < elements.length; i++) {
+                hs.add(elements[i]);
+                System.out.println(elements[i]);
+            }
             Pattern pa = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
             for (int i = 0; i < methodSig.length; i++) {
-                System.out.println(pa.matcher(methodSig[i]).matches());
-            }
-           // System.out.println();
-           // System.out.println(Arrays.toString(methodSig));
+               // System.out.println(pa.matcher(methodSig[i]).matches());
+                  System.out.println(methodSig[i]);
+            }*/
+            System.out.println(Arrays.toString(methodSig));
         }
        // if (hs.contains(newName + "()")) System.out.println("Duplicate method");
        // System.out.println(hs.toString());
