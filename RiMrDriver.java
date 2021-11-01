@@ -23,7 +23,7 @@ public class RiMrDriver {
                 Runtime rt = Runtime.getRuntime();
                 String [] cmd = {"/Users/trushpatel/refactor/methodSignature.sh"};
                 Process p = rt.exec(cmd);
-/*
+
                 ArrayList<String> a1 = printStream(p.getInputStream());
 
                 ArrayList<String> pTypes = new ArrayList<>();
@@ -34,7 +34,7 @@ public class RiMrDriver {
                 }
                 System.out.println(pTypes);
                 System.out.println(names);
-*/                
+                
                 replaceNames();
             } else {
                 System.out.println("Method name is illegal");
@@ -95,11 +95,9 @@ public class RiMrDriver {
          return n.toString();
      }
 
-    private static void replaceNames(String orig, String new) throws IOException{
+    private static void replaceNames() throws IOException{
         Runtime rt = Runtime.getRuntime();
-        String repNames = "sed -i \'\' \'s/\\b" + name + "\\b/" + newName + "/g\'" + " A.java";
-        String repCalls = "sed -i \'\' \'s/\\b" + name + "(" + "\\b/" + newName + "(" + "/g\'" + " A.java";
-        String[] cmd = {repNames, repCalls};
+        String[] cmd = {"/Users/trushpatel/refactor/rename.sh"};
         Process proc = rt.exec(cmd);
         ArrayList<String> a3 = printStream(proc.getInputStream());
         System.out.println(a3.toString());
