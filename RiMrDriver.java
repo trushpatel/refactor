@@ -7,7 +7,8 @@ import java.util.regex.*;
 public class RiMrDriver {
     private static String name;
     private static String newName;
-
+    private static final char L_PAREN = '(';
+    
     public static void main(String[] args) {
         try {
             Scanner kb = new Scanner(System.in);
@@ -25,10 +26,13 @@ public class RiMrDriver {
             ArrayList<String> a1 = printStream(p.getInputStream());
 
             ArrayList<String> pTypes = new ArrayList<>();
+            ArrayList<String> names = new ArrayList<>();
             for (int i = 0; i < a1.size(); i++) {
                 pTypes.add(parameterTypes(a1.get(i)));
+                names.add(name(a1.get(i)));
             }
             System.out.println(pTypes);
+            System.out.println(names);
 
             
         } catch (Exception e) {
@@ -73,14 +77,16 @@ public class RiMrDriver {
               }
           }
           return paramTypes.toString();
-          /*
-          // Name
-          Matcher m1 = Pattern.compile("([^\\(\\]*)[\\(\\)].*$").matcher(example);
-          StringBuilder n = new StringBuilder();
-          while(m1.find()) {
-              n.append(m1.group(1));
-          }
-          System.out.println(n);
-          */
      }
+
+     public static String name(String input){
+         StringBuilder n = new StringBuilder();
+         for (int i = 0; i < input.length(); i++) {
+             if (input.charAt(i) == L_PAREN) {
+                 break;
+             }
+             n.append(input.charAt(i));
+         }
+         return n.toString();
+     }   
 }
