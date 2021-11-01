@@ -1,5 +1,6 @@
 /* Account for RTP, CTP, Visibility */
 /* Use tree for inheritance */
+/* How to pass java class vars into a bash script (/
 
 import java.util.*;
 import java.io.*;
