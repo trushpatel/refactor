@@ -34,7 +34,8 @@ public class RiMrDriver {
                 }
                 System.out.println(pTypes);
                 System.out.println(names);
-                replaceNames();
+                
+                replaceName();
             } else {
                 System.out.println("Method name is illegal");
             }
@@ -94,7 +95,7 @@ public class RiMrDriver {
          return n.toString();
      }
 
-    private static void replaceNames() throws IOException{
+    private static void replaceNames(String orig, String new) throws IOException{
         Runtime rt = Runtime.getRuntime();
         String repNames = "sed -i \'\' \'s/\\b" + name + "\\b/" + newName + "/g\'" + " A.java";
         String repCalls = "sed -i \'\' \'s/\\b" + name + "(" + "\\b/" + newName + "(" + "/g\'" + " A.java";
