@@ -96,8 +96,9 @@ public class RiMrDriver {
 
     private static void replaceNames() throws IOException{
         Runtime rt = Runtime.getRuntime();
-        String command = "sed -i \'s/\\b" + name + "\\b/" + newName + "/g\'" + " A.java";
-        String[] cmd = {command};
+        String repNames = "sed -i \'\' \'s/\\b" + name + "\\b/" + newName + "/g\'" + " A.java";
+        String repCalls = "sed -i \'\' \'s/\\b" + name + "(" + "\\b/" + newName + "(" + "/g\'" + " A.java";
+        String[] cmd = {repNames, repCalls};
         Process proc = rt.exec(cmd);
         ArrayList<String> a3 = printStream(proc.getInputStream());
         System.out.println(a3.toString());
