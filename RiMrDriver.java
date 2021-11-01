@@ -21,40 +21,66 @@ public class RiMrDriver {
             Runtime rt = Runtime.getRuntime();
             String [] cmd = {"/Users/trushpatel/refactor/methodSignature.sh"};
             Process p = rt.exec(cmd);
-            printStream(p.getInputStream());
+
+            ArrayList<String> a1 = printStream(p.getInputStream());
+
+            ArrayList<String> pTypes = new ArrayList<>();
+            for (int i = 0; i < a1.size(); i++) {
+                pTypes.add(parameterTypes(a1.get(i)));
+            }
+            System.out.println(pTypes);
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void printStream(InputStream in) throws IOException {
+    private static ArrayList printStream(InputStream in) throws IOException {
         HashSet<String> hs = new HashSet<>();
         Pattern p = Pattern.compile("\\s*[()]\\s*");
         Matcher m;
         BufferedReader is = new BufferedReader(new InputStreamReader(in));
         String line;
+        ArrayList<String> a = new ArrayList<>();
         while ((line = is.readLine()) != null) {
-           // String [] elements = line.split(" ");
-            String [] methodSig = line.split("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]");
-            /*m = p.matcher();
-            System.out.println(m.matches());
-            for (int i = 0; i < elements.length; i++) {
-                hs.add(elements[i]);
-                System.out.println(elements[i]);
-            }
-            Pattern pa = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
-            for (int i = 0; i < methodSig.length; i++) {
-               // System.out.println(pa.matcher(methodSig[i]).matches());
-                  System.out.println(methodSig[i]);
-            }*/
-            System.out.println(Arrays.toString(methodSig));
+            a.add(line);
         }
-       // if (hs.contains(newName + "()")) System.out.println("Duplicate method");
-       // System.out.println(hs.toString());
+        return a;
     }
 
     private static boolean validSig (String s) {
         Pattern p = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
         return p.matcher(s).matches();
     }
+
+    public static String parameterTypes(String input) {
+         StringBuilder in = new StringBuilder();
+         in.append(input);
+         Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(in);
+         StringBuilder s = new StringBuilder();
+         while(m.find()) {
+             s.append(m.group(1));
+         }
+         String [] a = s.toString().replaceAll(",", "").split(" ");
+         StringBuilder paramTypes = new StringBuilder();
+         for (int i = 0; i < a.length; i++) {
+             if (i % 2 == 0) {
+                 paramTypes.append(a[i]);
+                 if (i < a.length - 2) {
+                     paramTypes.append(", ");
+                 }
+              }
+          }
+          return paramTypes.toString();
+          /*
+          // Name
+          Matcher m1 = Pattern.compile("([^\\(\\]*)[\\(\\)].*$").matcher(example);
+          StringBuilder n = new StringBuilder();
+          while(m1.find()) {
+              n.append(m1.group(1));
+          }
+          System.out.println(n);
+          */
+     }
 }
