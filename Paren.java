@@ -5,9 +5,13 @@ import java.lang.Runtime;
 import java.util.regex.*;
 
 class Paren {
+
+    private static final char L_PAREN = '(';
+
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
         String input = kb.nextLine();
+        System.out.println(name(input));
         System.out.println(parameterTypes(input));
     }
 
@@ -30,14 +34,17 @@ class Paren {
             }
         }
         return paramTypes.toString();
-/*
+    }
+
+    public static String name(String input){
         // Name
-        Matcher m1 = Pattern.compile("([^\\(\\]*)[\\(\\)].*$").matcher(example);
         StringBuilder n = new StringBuilder();
-        while(m1.find()) {
-            n.append(m1.group(1));
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == L_PAREN) {
+                break;
+            }
+            n.append(input.charAt(i));
         }
-        System.out.println(n);
-*/  
+        return n.toString();
     }
 }
