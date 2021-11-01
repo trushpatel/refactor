@@ -23,19 +23,19 @@ public class RiMrDriver {
                 Runtime rt = Runtime.getRuntime();
                 String [] cmd = {"/Users/trushpatel/refactor/methodSignature.sh"};
                 Process p = rt.exec(cmd);
-
+/*
                 ArrayList<String> a1 = printStream(p.getInputStream());
 
                 ArrayList<String> pTypes = new ArrayList<>();
                 ArrayList<String> names = new ArrayList<>();
                 for (int i = 0; i < a1.size(); i++) {
-                    pTypes.add(parameterTypes(a1.get(i)));
-                    names.add(name(a1.get(i)));
+                    pTypes.add(methodParameterTypes(a1.get(i)));
+                    names.add(methodName(a1.get(i)));
                 }
                 System.out.println(pTypes);
                 System.out.println(names);
-                
-                replaceName();
+*/                
+                replaceNames();
             } else {
                 System.out.println("Method name is illegal");
             }
@@ -63,7 +63,7 @@ public class RiMrDriver {
         return p.matcher(s).matches();
     }
 
-    private static String parameterTypes(String input) {
+    private static String methodParameterTypes(String input) {
          StringBuilder in = new StringBuilder();
          in.append(input);
          Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(in);
@@ -84,7 +84,7 @@ public class RiMrDriver {
           return paramTypes.toString();
      }
 
-     private static String name(String input){
+     private static String methodName(String input){
          StringBuilder n = new StringBuilder();
          for (int i = 0; i < input.length(); i++) {
              if (input.charAt(i) == L_PAREN) {
