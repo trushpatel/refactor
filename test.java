@@ -14,7 +14,7 @@ private static void printStream(InputStream in) throws IOException {
 public static void main(String args[]) {
     try {
         Runtime rt = Runtime.getRuntime();
-        String[] cmd = {"grep 'x' A.java"};
+        String[] cmd = {"sed -i \'\' \'s/\\bx\\b/y/g\' A.java"};
         Process proc = rt.exec(cmd);
         printStream(proc.getInputStream());
         System.out.println("Error : ");

@@ -18,29 +18,33 @@ public class RiMrDriver {
 
             System.out.println("Enter the new method name: ");
             newName = kb.nextLine();
+            if (validName(newName)) {
 
-            Runtime rt = Runtime.getRuntime();
-            String [] cmd = {"/Users/trushpatel/refactor/methodSignature.sh"};
-            Process p = rt.exec(cmd);
+                Runtime rt = Runtime.getRuntime();
+                String [] cmd = {"/Users/trushpatel/refactor/methodSignature.sh"};
+                Process p = rt.exec(cmd);
 
-            ArrayList<String> a1 = printStream(p.getInputStream());
+                ArrayList<String> a1 = printStream(p.getInputStream());
 
-            ArrayList<String> pTypes = new ArrayList<>();
-            ArrayList<String> names = new ArrayList<>();
-            for (int i = 0; i < a1.size(); i++) {
-                pTypes.add(parameterTypes(a1.get(i)));
-                names.add(name(a1.get(i)));
+                ArrayList<String> pTypes = new ArrayList<>();
+                ArrayList<String> names = new ArrayList<>();
+                for (int i = 0; i < a1.size(); i++) {
+                    pTypes.add(parameterTypes(a1.get(i)));
+                    names.add(name(a1.get(i)));
+                }
+                System.out.println(pTypes);
+                System.out.println(names);
+                replaceNames();
+            } else {
+                System.out.println("Method name is illegal");
             }
-            System.out.println(pTypes);
-            System.out.println(names);
-
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static ArrayList printStream(InputStream in) throws IOException {
+    public static ArrayList printStream(InputStream in) throws IOException {
         HashSet<String> hs = new HashSet<>();
         Pattern p = Pattern.compile("\\s*[()]\\s*");
         Matcher m;
@@ -53,12 +57,12 @@ public class RiMrDriver {
         return a;
     }
 
-    private static boolean validSig (String s) {
-        Pattern p = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*[(][a-zA-Z]*[)]+");
+    private static boolean validName (String s) {
+        Pattern p = Pattern.compile("\s*[_$A-Za-z][_$a-zA-Z0-9]*");
         return p.matcher(s).matches();
     }
 
-    public static String parameterTypes(String input) {
+    private static String parameterTypes(String input) {
          StringBuilder in = new StringBuilder();
          in.append(input);
          Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(in);
@@ -79,7 +83,7 @@ public class RiMrDriver {
           return paramTypes.toString();
      }
 
-     public static String name(String input){
+     private static String name(String input){
          StringBuilder n = new StringBuilder();
          for (int i = 0; i < input.length(); i++) {
              if (input.charAt(i) == L_PAREN) {
@@ -88,5 +92,14 @@ public class RiMrDriver {
              n.append(input.charAt(i));
          }
          return n.toString();
-     }   
+     }
+
+    private static void replaceNames() throws IOException{
+        Runtime rt = Runtime.getRuntime();
+        String command = "sed -i \'s/\\b" + name + "\\b/" + newName + "/g\'" + " A.java";
+        String[] cmd = {command};
+        Process proc = rt.exec(cmd);
+        ArrayList<String> a3 = printStream(proc.getInputStream());
+        System.out.println(a3.toString());
+    }
 }
