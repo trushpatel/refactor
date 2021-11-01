@@ -1,4 +1,5 @@
 /* Account for RTP, CTP, Visibility */
+/* Use tree for inheritance */
 
 import java.util.*;
 import java.io.*;
